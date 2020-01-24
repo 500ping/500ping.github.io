@@ -11,7 +11,7 @@
 <body>
     <form class="breatherExcerse">
         Enter second of inhale: <input type="number" class="inhaleTime" min="4" max="10" value="4" required>
-        <button type="submit">Start!</button>
+        <button type="submit" class="start">Start!</button>
         <button type="button" class="stop">Stop!</button>
     </form>
 
@@ -30,6 +30,8 @@
 
             $(".breatherExcerse").submit(function () {
                 event.preventDefault();
+
+                $(".start").hide();
 
                 var inhaleTime = $(".inhaleTime").val();
 
@@ -78,6 +80,7 @@
                 $(".status").text("null");
                 $(".second").text("0");
                 $(".circle").text("1");
+                $(".start").show();
             })
 
             function playVoice(fileName) {
@@ -86,6 +89,8 @@
                 // audioElement.play();
 
                 var soundEffect = new Audio();
+                soundEffect.play();
+
                 soundEffect.src = 'Voice/' + fileName;
                 soundEffect.play();
             }
