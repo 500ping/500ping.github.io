@@ -27,6 +27,11 @@
     <script>
         $(document).ready(function () {
             var breatheInterval;
+            var soundEffect = new Audio();
+
+            $(".start").click(function() {
+                soundEffect.play();
+            })
 
             $(".breatherExcerse").submit(function () {
                 event.preventDefault();
@@ -44,17 +49,20 @@
                     $(".second").text(second);
 
                     if (second == 1) {
-                        playVoice("Inhale.mp3");
+                        soundEffect.src = "Voice/Inhale.mp3";
+                        soundEffect.play();
                         $(".status").text("inhale");
                     }
 
                     if (second == inhaleTime) {
-                        playVoice("Hold.mp3");
+                        soundEffect.src = "Voice/Hold.mp3";
+                        soundEffect.play();
                         $(".status").text("hold");
                     }
 
                     if (second == (inhaleTime * 3)) {
-                        playVoice("Exhale.mp3");
+                        soundEffect.src = "Voice/Exhale.mp3";
+                        soundEffect.play();
                         $(".status").text("exhale");
                     }
 
@@ -63,12 +71,14 @@
                         circle++;
 
                         if (circle <= 10) {
-                            playVoice("Again.mp3");
+                            soundEffect.src = "Voice/Again.mp3";
+                            soundEffect.play();
                             $(".status").text("again!");
                             $(".circle").text(circle);
                         } else {
                             clearInterval(breatheInterval);
-                            playVoice("Stop.mp3");
+                            soundEffect.src = "Voice/Stop.mp3";
+                            soundEffect.play();
                             $(".status").text("stoped");
                         }
                     }
@@ -83,17 +93,17 @@
                 $(".start").show();
             })
 
-            function playVoice(fileName) {
-                // var audioElement = document.createElement('audio');
-                // audioElement.setAttribute('src', 'Voice/'+ fileName);
-                // audioElement.play();
+            // function playVoice(fileName) {
+            //     // var audioElement = document.createElement('audio');
+            //     // audioElement.setAttribute('src', 'Voice/'+ fileName);
+            //     // audioElement.play();
 
-                var soundEffect = new Audio();
-                soundEffect.play();
+            //     var soundEffect = new Audio();
+            //     soundEffect.play();
 
-                soundEffect.src = 'Voice/' + fileName;
-                soundEffect.play();
-            }
+            //     soundEffect.src = 'Voice/' + fileName;
+            //     soundEffect.play();
+            // }
         });
     </script>
 </body>
