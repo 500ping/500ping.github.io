@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>500PING</title>
+</head>
+
+<body>
+    <form class="breatherExcerse">
+        Enter second of inhale: <input type="number" class="inhaleTime" min="4" max="10" value="4" required>
+        <button type="submit">Start!</button>
+    </form>
+
+    Second: <span class="second"></span>
+    <br>
+    Status: <span class="status"></span>
+    <br>
+    Circle: <span class="circle">1</span>
+
+    <!--Jquery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".breatherExcerse").submit(function () {
+                event.preventDefault();
+
+                var inhaleTime = $(".inhaleTime").val();
+
+                var second = 0;
+                var circle = 1;
+
+                var breatheInterval = setInterval(function () {
+                    second++;
+
+                    $(".second").text(second);
+
+                    if (second == 1) {
+                        playVoice("Inhale.mp3");
+                        $(".status").text("inhale");
+                    }
+
+                    if (second == inhaleTime) {
+                        playVoice("Hold.mp3");
+                        $(".status").text("hold");
+                    }
+
+                    if (second == (inhaleTime * 3)) {
+                        playVoice("Exhale.mp3");
+                        $(".status").text("exhale");
+                    }
+
+                    if (second == (inhaleTime * 5)) {
+                        second = 0;
+                        circle++;
+
+                        if (circle <= 10) {
+                            playVoice("Again.mp3");
+                            $(".status").text("again!");
+                            $(".circle").text(circle);
+                        } else {
+                            clearInterval(breatheInterval);
+                            playVoice("Stop.mp3");
+                            $(".status").text("stoped");
+                        }
+                    }
+                }, 1000);
+            });
+
+            function playVoice(fileName) {
+                var audioElement = document.createElement('audio');
+                audioElement.setAttribute('src', 'Voice/'+ fileName);
+                audioElement.play();
+            }
+        });
+    </script>
+</body>
+
+</html>
