@@ -70,16 +70,13 @@
                         second = 0;
                         circle++;
 
-                        if (circle <= 10) {
-                            soundEffect.src = "Voice/Again.mp3";
-                            soundEffect.play();
-                            $(".status").text("again!");
+                        if (circle <= 2) {
                             $(".circle").text(circle);
                         } else {
                             clearInterval(breatheInterval);
                             soundEffect.src = "Voice/Stop.mp3";
                             soundEffect.play();
-                            $(".status").text("stoped");
+                            $(".status").text("stopped");
                         }
                     }
                 }, 1000);
