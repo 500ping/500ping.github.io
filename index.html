@@ -12,11 +12,12 @@
     <form class="breatherExcerse">
         Enter second of inhale: <input type="number" class="inhaleTime" min="4" max="10" value="4" required>
         <button type="submit">Start!</button>
+        <button type="button" class="stop">Stop!</button>
     </form>
 
-    Second: <span class="second"></span>
+    Second: <span class="second">0</span>
     <br>
-    Status: <span class="status"></span>
+    Status: <span class="status">null</span>
     <br>
     Circle: <span class="circle">1</span>
 
@@ -25,6 +26,8 @@
 
     <script>
         $(document).ready(function () {
+            var breatheInterval;
+
             $(".breatherExcerse").submit(function () {
                 event.preventDefault();
 
@@ -33,7 +36,7 @@
                 var second = 0;
                 var circle = 1;
 
-                var breatheInterval = setInterval(function () {
+                breatheInterval = setInterval(function () {
                     second++;
 
                     $(".second").text(second);
@@ -70,10 +73,21 @@
                 }, 1000);
             });
 
+            $(".stop").click(function() {
+                clearInterval(breatheInterval);
+                $(".status").text("null");
+                $(".second").text("0");
+                $(".circle").text("1");
+            })
+
             function playVoice(fileName) {
-                var audioElement = document.createElement('audio');
-                audioElement.setAttribute('src', 'Voice/'+ fileName);
-                audioElement.play();
+                // var audioElement = document.createElement('audio');
+                // audioElement.setAttribute('src', 'Voice/'+ fileName);
+                // audioElement.play();
+
+                var soundEffect = new Audio();
+                soundEffect.src = 'Voice/' + fileName;
+                soundEffect.play();
             }
         });
     </script>
